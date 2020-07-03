@@ -1,11 +1,5 @@
 package com.example.dsalgo.list;
 
-import com.sun.javafx.scene.control.skin.VirtualFlow;
-
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
 /**
  *  @author: paladin
  *  @date: created in 2020/6/28 21:09
@@ -14,13 +8,12 @@ public class SinglyLinkedList<T> {
 
     Node<T> first;
     Node<T> last;
+    private Node<T> next;
 
     int size;
     private class Node<T>{
         T item;
         Node<T> next;
-
-
 
         public Node(T item, Node<T> next) {
             this.item = item;
@@ -28,29 +21,26 @@ public class SinglyLinkedList<T> {
         }
     }
 
-
-    private Node next;
-
     public boolean add(T data){
-        final Node l = last;
-        Node newnode = new Node(data, next);
-        last = newnode;
+        final Node<T> l = last;
+        Node<T> node = new Node(data, next);
+        last = node;
         if (l == null) {
-            first = newnode;
+            first = node;
         } else {
-            l.next = newnode;
+            l.next = node;
         }
         size++;
         return true;
     }
 
-    public boolean remove(int index){
+    public boolean removeIndex(int index){
         Node<T> data = first;
         for (int i = 0; i < index; ++i) {
             data = data.next;
         }
         Node<T> pre = first;
-//        Node<T> node = null;
+
         for (int i = 0; i < index - 1; ++i) {
             pre = pre.next;
         }
@@ -67,7 +57,8 @@ public class SinglyLinkedList<T> {
         size--;
         return true;
     }
-    public boolean remove(Node<T> node){
+
+    public boolean removeElement(Node<T> node){
         Node<T> data = first;
 
         if (first.equals(node)) {
@@ -78,20 +69,26 @@ public class SinglyLinkedList<T> {
 
         }
         for (int i = 0; i < size; ++i) {
-            Node<T> pre = data;
             data = data.next;
             if (data.next.item.equals(node.item)) {
                 data.next = data.next.next;
                 data.next.next = null;
             }
         }
-        return false;
+        return true;
     }
 
-
-    public boolean set(Node data){
-
-        return false;
+    public boolean set(T data, T element) {
+        Node<T> node = first;
+        for (int i = 0; i < size; i++) {
+            if (node.item.equals(data)) {
+                node.item = element;
+                node = node.next;
+                continue;
+            }
+            node = node.next;
+        }
+        return true;
     }
 
     public T get(int index){
@@ -115,9 +112,17 @@ public class SinglyLinkedList<T> {
             String a = list.get(i);
             System.out.println(a);
         }
-        list.remove(1);
+        list.removeIndex(1);
         size = list.size;
         System.out.println("=========");
+        for (int i = 0; i < size; i++) {
+            String a = list.get(i);
+            System.out.println(a);
+        }
+        System.out.println("===================");
+        list.add("sdgasd");
+        size = list.size;
+        list.set("sdgasd", "aaaaaaaaaaaaa");
         for (int i = 0; i < size; i++) {
             String a = list.get(i);
             System.out.println(a);
