@@ -58,19 +58,19 @@ public class SinglyLinkedList<T> {
         return true;
     }
 
-    public boolean removeElement(Node<T> node){
+    public boolean removeElement(T item){
         Node<T> data = first;
 
-        if (first.equals(node)) {
+        if (first.item.equals(item)) {
             first = data.next;
             data.next = null;
         }
-        if (last.equals(node)) {
+        if (last.item.equals(item)) {
 
         }
         for (int i = 0; i < size; ++i) {
             data = data.next;
-            if (data.next.item.equals(node.item)) {
+            if (data.next.item.equals(item)) {
                 data.next = data.next.next;
                 data.next.next = null;
             }
@@ -97,36 +97,6 @@ public class SinglyLinkedList<T> {
             node = node.next;
         }
         return node.item;
-    }
-
-    public static void main(String[] args) {
-        SinglyLinkedList<String> list = new SinglyLinkedList<String>();
-        list.add("sdgasd");
-        list.add("sdags");
-        list.add("sdgsadgsdasd");
-        list.add("asdhsfs");
-        list.add("sadhgdsf");
-
-        int size = list.size;
-        for (int i = 0; i < size; i++) {
-            String a = list.get(i);
-            System.out.println(a);
-        }
-        list.removeIndex(1);
-        size = list.size;
-        System.out.println("=========");
-        for (int i = 0; i < size; i++) {
-            String a = list.get(i);
-            System.out.println(a);
-        }
-        System.out.println("===================");
-        list.add("sdgasd");
-        size = list.size;
-        list.set("sdgasd", "aaaaaaaaaaaaa");
-        for (int i = 0; i < size; i++) {
-            String a = list.get(i);
-            System.out.println(a);
-        }
     }
 
 }
