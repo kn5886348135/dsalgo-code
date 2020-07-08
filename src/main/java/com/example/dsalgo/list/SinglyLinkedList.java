@@ -1,29 +1,70 @@
 package com.example.dsalgo.list;
 
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.ListIterator;
+
 /**
  *  @author: paladin
  *  @date: created in 2020/6/28 21:09
  */
-public class SinglyLinkedList<T> {
+public class SinglyLinkedList<E> implements List<E>{
 
-    Node<T> first;
-    Node<T> last;
-    private Node<T> next;
+    Node<E> first;
+    Node<E> last;
+    private Node<E> next;
 
     int size;
-    private class Node<T>{
-        T item;
-        Node<T> next;
 
-        public Node(T item, Node<T> next) {
-            this.item = item;
-            this.next = next;
-        }
+    @Override
+    public int size() {
+        return 0;
     }
 
-    public boolean add(T data){
-        final Node<T> l = last;
-        Node<T> node = new Node(data, next);
+    @Override
+    public boolean isEmpty() {
+        return false;
+    }
+
+    @Override
+    public boolean contains(Object o) {
+        return false;
+    }
+
+    @Override
+    public Iterator<E> iterator() {
+        return null;
+    }
+
+    @Override
+    public ListIterator<E> listIterator() {
+        return null;
+    }
+
+    @Override
+    public ListIterator<E> listIterator(int index) {
+        return null;
+    }
+
+    @Override
+    public java.util.List<E> subList(int fromIndex, int toIndex) {
+        return null;
+    }
+
+    @Override
+    public Object[] toArray() {
+        return new Object[0];
+    }
+
+    @Override
+    public <T> T[] toArray(T[] a) {
+        return null;
+    }
+
+    @Override
+    public boolean add(E e) {
+        final Node<E> l = last;
+        Node<E> node = new Node(e, next);
         last = node;
         if (l == null) {
             first = node;
@@ -34,17 +75,88 @@ public class SinglyLinkedList<T> {
         return true;
     }
 
+    @Override
+    public void add(int index, E element) {
+
+    }
+
+    @Override
+    public boolean addAll(Collection<? extends E> c) {
+        return false;
+    }
+
+    @Override
+    public boolean addAll(int index, Collection<? extends E> c) {
+        return false;
+    }
+
+    @Override
+    public boolean remove(Object o) {
+        return false;
+    }
+
+    @Override
+    public E remove(int index) {
+        return null;
+    }
+
+    @Override
+    public boolean removeAll(Collection<?> c) {
+        return false;
+    }
+
+    @Override
+    public E set(int index, E element) {
+        return null;
+    }
+
+    @Override
+    public boolean containsAll(Collection<?> c) {
+        return false;
+    }
+
+    @Override
+    public boolean retainAll(Collection<?> c) {
+        return false;
+    }
+
+    @Override
+    public void clear() {
+
+    }
+
+    @Override
+    public int indexOf(Object o) {
+        return 0;
+    }
+
+    @Override
+    public int lastIndexOf(Object o) {
+        return 0;
+    }
+
+    private class Node<E>{
+        E item;
+        Node<E> next;
+
+        public Node(E item, Node<E> next) {
+            this.item = item;
+            this.next = next;
+        }
+    }
+
+
     public boolean removeIndex(int index){
-        Node<T> data = first;
+        Node<E> data = first;
         for (int i = 0; i < index; ++i) {
             data = data.next;
         }
-        Node<T> pre = first;
+        Node<E> pre = first;
 
         for (int i = 0; i < index - 1; ++i) {
             pre = pre.next;
         }
-        Node<T> suffix = data.next;
+        Node<E> suffix = data.next;
 
         if (index == 0) {
             first = data.next;
@@ -58,8 +170,8 @@ public class SinglyLinkedList<T> {
         return true;
     }
 
-    public boolean removeElement(T item){
-        Node<T> data = first;
+    public boolean removeElement(E item){
+        Node<E> data = first;
 
         if (first.item.equals(item)) {
             first = data.next;
@@ -78,8 +190,8 @@ public class SinglyLinkedList<T> {
         return true;
     }
 
-    public boolean set(T data, T element) {
-        Node<T> node = first;
+    public boolean set(E data, E element) {
+        Node<E> node = first;
         for (int i = 0; i < size; i++) {
             if (node.item.equals(data)) {
                 node.item = element;
@@ -91,8 +203,8 @@ public class SinglyLinkedList<T> {
         return true;
     }
 
-    public T get(int index){
-        Node<T> node = first;
+    public E get(int index){
+        Node<E> node = first;
         for (int i = 0; i < index; i++) {
             node = node.next;
         }
