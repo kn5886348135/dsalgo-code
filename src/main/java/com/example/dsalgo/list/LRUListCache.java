@@ -8,7 +8,7 @@ import java.util.ListIterator;
  *  @author: paladin
  *  @date: created in 2020/6/28 21:05
  */
-public class LRUCache<T> {
+public class LRUListCache<T> {
 
     int size;
     Node<T> first;
