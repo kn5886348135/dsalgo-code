@@ -11,10 +11,12 @@ public class Sort {
         int len = arr.length;
 //        bubbleSort(arr);
 //        insertionSort(arr);
-        selectionSort(arr);
+//        selectionSort(arr);
+        mergeSort(arr, 0, 12);
 
         for (int i = 0; i < len; i++) {
             System.out.println(arr[i]);
+//            System.out.println("i " + i + " >>1 " + (i >> 1));
         }
     }
 
@@ -86,4 +88,81 @@ public class Sort {
         }
     }
 
+    public static void mergeSort(int[] a,int p,int r) {
+        if (p >= r) {
+            return;
+        }
+
+        // 取p和r的中间位置q，防止(p+r)的和超过int类型最大值
+        // 为什么用位运算会报错？
+        int q = p + (r - p) / 2;
+        mergeSort(a, p, q);
+        mergeSort(a, q + 1, r);
+        merge(a, p, q, r);
+    }
+
+    private static void merge(int[] a, int p, int q, int r) {
+        int i = p;
+        int j = q+1;
+        int k = 0;
+        int[] temp = new int[r - p + 1];
+
+        // 合并数组
+        while (i <= q && j <= r) {
+            if (a[i] <= a[j]) {
+                temp[k++] = a[i++];
+            }else {
+                temp[k++] = a[j++];
+            }
+        }
+
+        // 判断子数组中有剩余的数据
+        int start = i;
+        int end = q;
+        if (j <= r) {
+            start = j;
+            end = r;
+        }
+        while (start <= end) {
+            temp[k++] = a[start++];
+        }
+
+        // 将temp中的数据拷贝回去
+        for (int l = 0; l < r - p + 1; l++) {
+            a[p + l] = temp[l];
+        }
+    }
+
+
+    public static void quickSort(int[] a,int p,int r) {
+        if (p >= r) {
+            return;
+        }
+
+        // 获取分区点
+        int q = partition(a, p, r);
+        quickSort(a, p, q - 1);
+        quickSort(a, q + 1, r);
+        
+    }
+
+    private static int partition(int[] a, int p, int r) {
+        int pivot = a[r];
+        int i = p;
+        for (int j = 0; j < r; j++) {
+            if (a[j] < pivot) {
+                if(i == j){
+                    ++i;
+                }else{
+                    int temp = a[i];
+                    a[i++] = a[j];
+                    a[j] = temp;
+                }
+            }
+        }
+        int temp = a[i];
+        a[i] = a[r];
+        a[r] = temp;
+        return i;
+    }
 }
