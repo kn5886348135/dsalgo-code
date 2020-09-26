@@ -1,6 +1,4 @@
-package com.example.dsalgo.queue;
-
-import java.util.Arrays;
+package com.example.dsalgo.queue;   
 
 /**
  * @Description: 数组实现的队列
