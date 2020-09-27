@@ -14,7 +14,8 @@ public class SortsAddOn {
 //        insertionSort(arr);
 //        selectionSort(arr);
 //        mergeSort(arr, 0, 12);
-        bubbleDownSort(arr);
+//        bubbleDownSort(arr);
+        shellSort(arr);
         for (int i = 0; i < len; i++) {
             System.out.println(arr[i]);
         }
@@ -42,5 +43,23 @@ public class SortsAddOn {
         if (len <= 1) {
             return;
         }
+
+        int step = len >> 1;
+        while (step >= 1) {
+            for (int i = step; i < len; i++) {
+                int value = a[i];
+                int j = i - step;
+                for (; j >= 0; j -= step) {
+                    if (value < a[j]) {
+                        a[j + step] = a[j];
+                    } else {
+                        break;
+                    }
+                }
+                a[j + step] = value;
+            }
+            step = step >> 1;
+        }
     }
+
 }
