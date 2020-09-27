@@ -12,8 +12,8 @@ public class Sort {
 //        bubbleSort(arr);
 //        insertionSort(arr);
 //        selectionSort(arr);
-        mergeSort(arr, 0, 12);
-
+//        mergeSort(arr, 0, 12);
+        bubbleSort2(arr);
         for (int i = 0; i < len; i++) {
             System.out.println(arr[i]);
 //            System.out.println("i " + i + " >>1 " + (i >> 1));
@@ -46,6 +46,40 @@ public class Sort {
                 break;
             }
         }
+    }
+
+    /**
+     * 冒泡排序的改进
+     * 在每一轮排序后记录最后一次元素交换的位置，作为下次比较的边界，
+     * 对于边界外的元素在下次循环中无需比较
+     * @param a
+     */
+    public static void bubbleSort2(int[] a) {
+        int size = a.length;
+        if (size <= 1) {
+            return;
+        }
+        int lastExchange = 0;
+        int sortBorder = size - 1;
+
+        for (int i = 0; i < size; i++) {
+            // 提前退出标志位
+            boolean flag = false;
+            for (int j = i; j < sortBorder; j++) {
+                if (a[j] > a[j + 1]) {
+                    int temp = a[j];
+                    a[j] = a[j + 1];
+                    a[j + 1] = temp;
+                    flag = true;
+                    lastExchange = j;
+                }
+            }
+            sortBorder = lastExchange;
+            if (!flag) {
+                break;
+            }
+        }
+
     }
 
     public static void insertionSort(int[] a) {
@@ -143,7 +177,7 @@ public class Sort {
         int q = partition(a, p, r);
         quickSort(a, p, q - 1);
         quickSort(a, q + 1, r);
-        
+
     }
 
     private static int partition(int[] a, int p, int r) {
