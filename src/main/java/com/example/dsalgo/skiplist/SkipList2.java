@@ -28,8 +28,47 @@ public class SkipList2 {
         } else {
             return null;
         }
-
     }
+
+    public void insert(int value){
+        int level = head.forwards[0] == null ? 1 : randomLevel();
+        if (level > levelCount) {
+            level = ++levelCount;
+        }
+
+        Node newNode = new Node(level);
+        newNode.data = value;
+        Node[] update = new Node[level];
+        for (int i = 0; i < level; i++) {
+            update[i] = head;
+        }
+
+        Node p = head;
+        for (int i = levelCount - 1; i >= 1; i--) {
+            while (p.forwards[i] != null && p.forwards[i].data < value) {
+                p=p.forwards[i];
+            }
+            if (level > i) {
+                update[i] = p;
+            }
+        }
+        for (int i = 0; i < level; i++) {
+            newNode.forwards[i] = update[i].forwards[i];
+            update[i].forwards[i] = newNode;
+        }
+    }
+
+
+    private int randomLevel() {
+        int level = 1;
+        for (int i = 0; i < MAX_LEVEL; i++) {
+            if (random.nextInt() % 2 == 1) {
+                level++;
+            }
+        }
+        return level;
+    }
+
     /**
      * 跳表的节点，每个节点记录了当前节点数据和所在层数数据
      */
